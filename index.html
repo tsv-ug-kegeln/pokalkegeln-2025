@@ -50,7 +50,7 @@
     footer {
       text-align: center;
       padding: 1em;
-      font-size: 0.9em;
+      font-size: 0.8em;
       color: #666;
     }
     .subheading {
@@ -69,25 +69,25 @@
 
   <div class="container">
     <div class="round" id="round1">
-      <h2>1. Runde – Mo, 26. Mai ab 17:30 Uhr</h2>
+      <h2>1. Runde:<br><span style='font-size: 0.8em;'>Mo. 26. Mai ab 17:30 Uhr</span></h2>
       <div id="matches-round1"></div>
     </div>
 
     <div class="round" id="round2">
-      <h2>2. Runde – Mo, 2. Juni ab 17:30 Uhr</h2>
+      <h2>2. Runde:<br><span style='font-size: 0.8em;'>Mo. 2. Juni ab 17:30 Uhr</span></h2>
       <div id="matches-round2"></div>
     </div>
 
     <div class="round" id="semifinals">
-      <h2>Halbfinale – Do, 5. Juni ab 19:00 Uhr</h2>
+      <h2>Halbfinale:<br><span style='font-size: 0.8em;'>Do. 5. Juni ab 19:00 Uhr</span></h2>
       <div id="matches-round3"></div>
     </div>
 
     <div class="round" id="finals">
-      <h2>Finale & Platz 3 – Mo, 23. Juni ab 19:00 Uhr</h2>
+      <h2>Finale & Platz 3:<br><span style='font-size: 0.8em;'>Mo. 23. Juni ab 19:00 Uhr</span></h2>
       <div class="subheading">Spiel um Platz 3</div>
       <div id="matches-round4b"></div>
-      <div class="subheading">Finale</div>
+      <div class="subheading">Finale 🏆</div>
       <div id="matches-round4"></div>
     </div>
   </div>
@@ -134,7 +134,7 @@
       matches.forEach(match => {
         const div = document.createElement("div");
         div.className = "match";
-        div.innerHTML = `<h3>${match.time ? match.time + ": " : ""}${match.player1 || "Spieler/in 1"} vs. ${match.player2 || "Spieler/in 2"}</h3>${(match.player1 === "Willi" && match.player2 === "Freilos/Ersatz") || (match.player1 === "Spieler/in 7" && match.player2 === "Freilos/Ersatz") ? '' : "<div style='color:#666; font-size: 0.9em; margin-top: 0.25em;'>0:0 – Ergebnis folgt</div>"}`;
+        div.innerHTML = `<h3>${match.time ? match.time + ": " : ""}${match.player1 || "Spieler/in 1"} vs. ${match.player2 || "Spieler/in 2"}</h3>${(match.player1 === "Willi" && match.player2 === "Freilos/Ersatz") || (match.player1 === "Spieler/in 7" && match.player2 === "Freilos/Ersatz") ? '' : "<div style='color:#666; font-size: 0.8em; margin-top: 0.25em;'>0:0 – Ergebnis folgt</div>"}`;
         container.appendChild(div);
       });
     }
