@@ -134,7 +134,7 @@
       matches.forEach(match => {
         const div = document.createElement("div");
         div.className = "match";
-        div.innerHTML = `<h3>${match.time ? match.time + ": " : ""}${match.player1 || "Spieler/in 1"} vs. ${match.player2 || "Spieler/in 2"}</h3>${(match.player1 === "Willi" && match.player2 === "Freilos/Ersatz") || (match.player1 === "Spieler/in 7" && match.player2 === "Freilos/Ersatz") ? '' : "<div style='color:#666; font-size: 0.9em; margin-top: 0.25em;'>– Ergebnis folgt</div>"}`;
+        div.innerHTML = `<h3>${match.time ? match.time + ": " : ""}${match.player1 || "Spieler/in 1"} vs. ${match.player2 || "Spieler/in 2"}</h3>${(match.player1 === "Willi" && match.player2 === "Freilos/Ersatz") || (match.player1 === "Spieler/in 7" && match.player2 === "Freilos/Ersatz") ? '' : "<div style='color:#666; font-size: 0.9em; margin-top: 0.25em;'>0:0 – Ergebnis folgt</div>"}`;
         container.appendChild(div);
       });
     }
