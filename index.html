@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pokalkegeln 2025</title>
+  <link rel="icon" href="https://tsv-ug.de/wp-content/uploads/2024/02/tsv-logo.webp">
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background: #003399;
+      color: #fff;
+      padding: 1em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1em;
+    }
+    header img {
+      height: 50px;
+    }
+    .container {
+      padding: 1em;
+      max-width: 600px;
+      margin: auto;
+    }
+    .round {
+      margin-top: 2em;
+    }
+    .round h2 {
+      color: #003399;
+      border-bottom: 2px solid #ffcc00;
+      padding-bottom: 0.25em;
+    }
+    .match {
+      background: white;
+      margin: 1em 0;
+      padding: 1em;
+      border-left: 5px solid #ffcc00;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .match h3 {
+      margin: 0;
+    }
+    footer {
+      text-align: center;
+      padding: 1em;
+      font-size: 0.9em;
+      color: #666;
+    }
+    .subheading {
+      margin-top: 1em;
+      font-weight: bold;
+      font-size: 1.1em;
+    }
+  </style>
+</head>
+<body>
+  
+  <header>
+    <img src="https://tsv-ug.de/wp-content/uploads/2024/02/tsv-logo.webp" alt="TSV Logo">
+    <h1>Pokalkegeln 2025</h1>
+  </header>
+
+  <div class="container">
+    <div class="round" id="round1">
+      <h2>1. Runde – Mo, 26. Mai ab 17:30 Uhr</h2>
+      <div id="matches-round1"></div>
+    </div>
+
+    <div class="round" id="round2">
+      <h2>2. Runde – Mo, 2. Juni ab 17:30 Uhr</h2>
+      <div id="matches-round2"></div>
+    </div>
+
+    <div class="round" id="semifinals">
+      <h2>Halbfinale – Do, 5. Juni ab 19:00 Uhr</h2>
+      <div id="matches-round3"></div>
+    </div>
+
+    <div class="round" id="finals">
+      <h2>Finale & Platz 3 – Mo, 23. Juni ab 19:00 Uhr</h2>
+      <div class="subheading">Spiel um Platz 3</div>
+      <div id="matches-round4b"></div>
+      <div class="subheading">Finale</div>
+      <div id="matches-round4"></div>
+    </div>
+  </div>
+
+  <footer>
+    TSV Untergruppenbach – Pokalkegeln 2025
+  </footer>
+    
+
+  <script>
+    const round1Matches = [
+      { time: "17:30 Uhr", player1: "Lucas", player2: "Matthias" },
+      { time: "17:30 Uhr", player1: "Hans-Jürgen", player2: "Oliver" },
+      { time: "18:30 Uhr", player1: "Helga", player2: "Sepp" },
+      { time: "18:30 Uhr", player1: "Samu", player2: "Stefanie" },
+      { time: "19:30 Uhr", player1: "Petra", player2: "Roland" },
+      { time: "19:30 Uhr", player1: "Gerhard", player2: "Anke" },
+      { time: "", player1: "Willi", player2: "Freilos/Ersatz" }
+    ];
+
+    const round2Matches = [
+  { player1: "Spieler/in 1", player2: "Spieler/in 2" },
+  { player1: "Spieler/in 3", player2: "Spieler/in 4" },
+  { player1: "Spieler/in 5", player2: "Spieler/in 6" },
+  { player1: "Spieler/in 7", player2: "Freilos/Ersatz" }
+];
+
+    const round3Matches = [
+  { player1: "Spieler/in 1", player2: "Spieler/in 2" },
+  { player1: "Spieler/in 3", player2: "Spieler/in 4" }
+];
+
+    const round4Final = [
+      { player1: "", player2: "" }
+    ];
+
+    const round4ThirdPlace = [
+      { player1: "", player2: "" }
+    ];
+
+    function renderMatchList(containerId, matches) {
+      const container = document.getElementById(containerId);
+      container.innerHTML = "";
+      matches.forEach(match => {
+        const div = document.createElement("div");
+        div.className = "match";
+        div.innerHTML = `<h3>${match.time ? match.time + ": " : ""}${match.player1 || "Spieler/in 1"} vs. ${match.player2 || "Spieler/in 2"}${(match.player1 === "Willi" && match.player2 === "Freilos/Ersatz") || (match.player1 === "Spieler/in 7" && match.player2 === "Freilos/Ersatz") ? '' : " <span style='float:right; color:#666;'>– Ergebnis folgt</span>"}</h3>`;
+        container.appendChild(div);
+      });
+    }
+
+    function renderMatches() {
+      renderMatchList("matches-round1", round1Matches);
+      renderMatchList("matches-round2", round2Matches);
+      renderMatchList("matches-round3", round3Matches);
+      renderMatchList("matches-round4", round4Final);
+      renderMatchList("matches-round4b", round4ThirdPlace);
+    }
+
+    renderMatches();
+  </script>
+</body>
+</html>
