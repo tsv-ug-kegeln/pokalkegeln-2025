@@ -121,26 +121,29 @@
       matches.forEach(match => {
         const div = document.createElement("div");
         div.className = "match";
-        
+
         if (match.player3) {
           // 3-Spieler Match (Finale)
           div.innerHTML = `<h3>${match.player1} vs. ${match.player2} vs. ${match.player3}</h3>` +
-            `<div class='result'>${match.result}</div>` +
+            `<div class='result'>${match.result.split("Sieger*in:")[0].trim()} – Ergebnis folgt</div>` +
             `<div style='font-size: 0.9em; color: #333;'>1. Platz:<br>2. Platz:<br>3. Platz:</div>`;
         } else {
           // 2-Spieler Match (normale Runden)
-          div.innerHTML = `<h3>${match.time ? match.time + ": " : ""}${match.player1 || "Spieler/in 1"} vs. ${match.player2 || "Spieler/in 2"}</h3>` +
-            (match.result
-              ? (() => {
-                  const parts = match.result.split("Sieger*in:");
-                  const name = parts[1]?.trim() || "";
-                  return `<div class='result'>${parts[0].trim()}</div><div style='font-size: 0.9em; color: #333;'>${name === "Stefanie" ? "Siegerin" : "Sieger"}: ${name}</div>`;
-                })()
-              : ((match.player1 === "Willi" && match.player2 === "Freilos/Ersatz") || (match.player1 === "Spieler/in 7" && match.player2 === "Freilos/Ersatz"))
-                ? ''
-                : "<div class='result'>0:0 – Ergebnis folgt</div>");
+          const matchTime = match.time ? match.time + ": " : "";
+          if (match.result) {
+            const parts = match.result.split("Sieger*in:");
+            const name = parts[1]?.trim() || "";
+            const siegerText = name === "Stefanie" ? "Siegerin" : "Sieger";
+            div.innerHTML = `<h3>${matchTime}${match.player1 || "Spieler/in 1"} vs. ${match.player2 || "Spieler/in 2"}</h3>` +
+              `<div class='result'>${parts[0].trim()}</div>` +
+              `<div style='font-size: 0.9em; color: #333;'>${siegerText}: ${name}</div>`;
+          } else {
+            div.innerHTML = `<h3>${matchTime}${match.player1 || "Spieler/in 1"} vs. ${match.player2 || "Spieler/in 2"}</h3>` +
+              `<div class='result'>0:0 – Ergebnis folgt</div>` +
+              `<div style='font-size: 0.9em; color: #333;'>Sieger/in: folgt</div>`;
+          }
         }
-        
+
         container.appendChild(div);
       });
     }
