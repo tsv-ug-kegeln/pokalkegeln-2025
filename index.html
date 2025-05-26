@@ -47,12 +47,6 @@
     .match h3 {
       margin: 0;
     }
-    .result {
-      color: #FF0000;
-      font-size: 1.2em;
-      margin-top: 0.5em;
-      font-weight: bold;
-    }
     footer {
       text-align: center;
       padding: 1em;
@@ -80,13 +74,11 @@
     </div>
 
     <div class="round" id="round2">
-      <h2>2. Runde:<br><span style='font-size: 0.8em;'>Mo. 2. Juni ab 17:30 Uhr</span></h2>
+      <h2>Halbfinale:<br><span style='font-size: 0.8em;'>Mo. 2. Juni ab 17:30 Uhr</span></h2>
       <div id="matches-round2"></div>
     </div>
 
-    <div class="round" id="semifinals">
-      <h2>Halbfinale:<br><span style='font-size: 0.8em;'>Do. 5. Juni ab 19:00 Uhr</span></h2>
-      <div id="matches-round3"></div>
+    
     </div>
 
     <div class="round" id="finals">
@@ -101,31 +93,38 @@
   <footer>
     TSV Untergruppenbach – Pokalkegeln 2025
   </footer>
+    
 
   <script>
     const round1Matches = [
-      { time: "17:30 Uhr", player1: "Lucas", player2: "Matthias", result: "319:423   Sieger*in: Matthias" },
-      { time: "17:30 Uhr", player1: "Hans-Jürgen", player2: "Oliver", result: "433:292   Sieger*in: Hans-Jürgen" },
-      { time: "18:30 Uhr", player1: "Helga", player2: "Sepp", result: "433:446   Sieger*in: Sepp" },
-      { time: "18:30 Uhr", player1: "Samu", player2: "Stefanie", result: "367:370   Sieger*in: Stefanie" },
-      { time: "19:30 Uhr", player1: "Petra", player2: "Roland", result: "338:436   Sieger*in: Roland" },
-      { time: "19:30 Uhr", player1: "Gerhard", player2: "Willi", result: "457:454   Sieger*in: Gerhard" },
-    ];
+  { time: "17:30 Uhr", player1: "Lucas", player2: "Matthias", result: "0:0 – Ergebnis folgt" },
+  { time: "17:30 Uhr", player1: "Hans-Jürgen", player2: "Oliver", result: "0:0 – Ergebnis folgt" },
+  { time: "18:30 Uhr", player1: "Helga", player2: "Sepp", result: "0:0 – Ergebnis folgt" },
+  { time: "18:30 Uhr", player1: "Samu", player2: "Stefanie", result: "0:0 – Ergebnis folgt" },
+  { time: "19:30 Uhr", player1: "Petra", player2: "Roland", result: "0:0 – Ergebnis folgt" },
+  { time: "19:30 Uhr", player1: "Gerhard", player2: "Anke", result: "0:0 – Ergebnis folgt" },
+  { time: "", player1: "Willi", player2: "Freilos/Ersatz" }
+];
 
     const round2Matches = [
-      { time: "18:30 Uhr", player1: "Roland", player2: "Sepp" },
-      { time: "18:30 Uhr", player1: "Stefanie", player2: "Gerhard" },
-      { time: "vsl. 19:30 Uhr", player1: "Matthias", player2: "Hans-Jürgen" },
-    ];
+  { player1: "Spieler/in 1", player2: "Spieler/in 2" },
+  { player1: "Spieler/in 3", player2: "Spieler/in 4" },
+  { player1: "Spieler/in 5", player2: "Spieler/in 6" },
+  { player1: "Spieler/in 7", player2: "Freilos/Ersatz" }
+];
 
-  
+    const round3Matches = [
+  { player1: "Spieler/in 1", player2: "Spieler/in 2" },
+  { player1: "Spieler/in 3", player2: "Spieler/in 4" }
+];
+
     const round4Final = [
-      { player1: "", player2: "" }
-    ];
+  { player1: "Spieler/in 1", player2: "Spieler/in 2" }
+];
 
     const round4ThirdPlace = [
-      { player1: "", player2: "" }
-    ];
+  { player1: "Spieler/in 3", player2: "" }
+];
 
     function renderMatchList(containerId, matches) {
       const container = document.getElementById(containerId);
@@ -133,10 +132,11 @@
       matches.forEach(match => {
         const div = document.createElement("div");
         div.className = "match";
-        div.innerHTML = `<h3>${match.time ? match.time + ": " : ""}${match.player1 || "Spieler/in 1"} vs. ${match.player2 || "Spieler/in 2"}</h3>` +
-                        (match.result ? `<div class='result'>${match.result}</div>` 
-                                      : ((match.player1 === "Willi" && match.player2 === "Freilos/Ersatz") || (match.player1 === "Spieler/in 7" && match.player2 === "Freilos/Ersatz")) 
-                                      ? '' : "<div class='result'>0:0 – Ergebnis folgt</div>");
+        div.innerHTML = `<h3>${match.time ? match.time + ": " : ""}${match.player1 || "Spieler/in 1"} vs. ${match.player2 || "Spieler/in 2"}</h3>${match.result ? (() => {
+          const parts = match.result.split("Sieger\*in:");
+          return `<div style='color:#666; font-size: 0.8em; margin-top: 0.25em;'>${parts[0].trim()}</div>` +
+                 `<div style='color:#333; font-size: 0.8em;'>Sieger*in: ${parts[1].trim()}</div>`;
+        })() : (match.player1 === "Willi" && match.player2 === "Freilos/Ersatz") || (match.player1 === "Spieler/in 7" && match.player2 === "Freilos/Ersatz") ? '' : "<div style='color:#666; font-size: 0.8em; margin-top: 0.25em;'>0:0 – Ergebnis folgt</div>"`;<div style='color:#666; font-size: 0.8em; margin-top: 0.25em;'>${match.result}</div>` : (match.player1 === "Willi" && match.player2 === "Freilos/Ersatz") || (match.player1 === "Spieler/in 7" && match.player2 === "Freilos/Ersatz") ? '' : "<div style='color:#666; font-size: 0.8em; margin-top: 0.25em;'>0:0 – Ergebnis folgt</div>"}`;
         container.appendChild(div);
       });
     }
