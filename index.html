@@ -47,6 +47,12 @@
     .match h3 {
       margin: 0;
     }
+    .result {
+      color: #666;
+      font-size: 1.2em;
+      margin-top: 0.5em;
+      font-weight: bold;
+    }
     footer {
       text-align: center;
       padding: 1em;
@@ -95,29 +101,28 @@
   <footer>
     TSV Untergruppenbach – Pokalkegeln 2025
   </footer>
-    
 
   <script>
     const round1Matches = [
-  { time: "17:30 Uhr", player1: "Lucas", player2: "Matthias", result: "319:423" },
-  { time: "17:30 Uhr", player1: "Hans-Jürgen", player2: "Oliver", result: "433:292" },
-  { time: "18:30 Uhr", player1: "Helga", player2: "Sepp", result: "0:0 – Ergebnis folgt" },
-  { time: "18:30 Uhr", player1: "Samu", player2: "Stefanie", result: "0:0 – Ergebnis folgt" },
-  { time: "19:30 Uhr", player1: "Petra", player2: "Roland", result: "0:0 – Ergebnis folgt" },
-  { time: "19:30 Uhr", player1: "Gerhard", player2: "Willi", result: "0:0 – Ergebnis folgt" },
-];
+      { time: "17:30 Uhr", player1: "Lucas", player2: "Matthias", result: "319:423" },
+      { time: "17:30 Uhr", player1: "Hans-Jürgen", player2: "Oliver", result: "433:292" },
+      { time: "18:30 Uhr", player1: "Helga", player2: "Sepp", result: "0:0 – Ergebnis folgt" },
+      { time: "18:30 Uhr", player1: "Samu", player2: "Stefanie", result: "0:0 – Ergebnis folgt" },
+      { time: "19:30 Uhr", player1: "Petra", player2: "Roland", result: "0:0 – Ergebnis folgt" },
+      { time: "19:30 Uhr", player1: "Gerhard", player2: "Willi", result: "0:0 – Ergebnis folgt" },
+    ];
 
     const round2Matches = [
-  { player1: "Spieler/in 1", player2: "Spieler/in 2" },
-  { player1: "Spieler/in 3", player2: "Spieler/in 4" },
-  { player1: "Spieler/in 5", player2: "Spieler/in 6" },
-  { player1: "Freilos/Ersatz", player2: "Freilos/Ersatz" }
-];
+      { player1: "Spieler/in 1", player2: "Spieler/in 2" },
+      { player1: "Spieler/in 3", player2: "Spieler/in 4" },
+      { player1: "Spieler/in 5", player2: "Spieler/in 6" },
+      { player1: "Freilos/Ersatz", player2: "Freilos/Ersatz" }
+    ];
 
     const round3Matches = [
-  { player1: "Spieler/in 1", player2: "Spieler/in 2" },
-  { player1: "Spieler/in 3", player2: "Spieler/in 4" }
-];
+      { player1: "Spieler/in 1", player2: "Spieler/in 2" },
+      { player1: "Spieler/in 3", player2: "Spieler/in 4" }
+    ];
 
     const round4Final = [
       { player1: "", player2: "" }
@@ -133,7 +138,10 @@
       matches.forEach(match => {
         const div = document.createElement("div");
         div.className = "match";
-        div.innerHTML = `<h3>${match.time ? match.time + ": " : ""}${match.player1 || "Spieler/in 1"} vs. ${match.player2 || "Spieler/in 2"}</h3>${match.result ? `<div style='color:#666; font-size: 0.8em; margin-top: 0.25em;'>${match.result}</div>` : (match.player1 === "Willi" && match.player2 === "Freilos/Ersatz") || (match.player1 === "Spieler/in 7" && match.player2 === "Freilos/Ersatz") ? '' : "<div style='color:#666; font-size: 0.8em; margin-top: 0.25em;'>0:0 – Ergebnis folgt</div>"}`;
+        div.innerHTML = `<h3>${match.time ? match.time + ": " : ""}${match.player1 || "Spieler/in 1"} vs. ${match.player2 || "Spieler/in 2"}</h3>` +
+                        (match.result ? `<div class='result'>${match.result}</div>` 
+                                      : ((match.player1 === "Willi" && match.player2 === "Freilos/Ersatz") || (match.player1 === "Spieler/in 7" && match.player2 === "Freilos/Ersatz")) 
+                                      ? '' : "<div class='result'>0:0 – Ergebnis folgt</div>");
         container.appendChild(div);
       });
     }
