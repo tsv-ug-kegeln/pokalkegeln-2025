@@ -79,19 +79,12 @@
     </div>
 
     <div class="round" id="round2">
-      <h2>2. Runde:<br><span style='font-size: 0.8em;'>Mo. 2. Juni ab 17:30 Uhr</span></h2>
+      <h2>Halbfinale:<br><span style='font-size: 0.8em;'>Mo. 2. Juni ab 17:30 Uhr</span></h2>
       <div id="matches-round2"></div>
     </div>
 
-    <div class="round" id="semifinals">
-      <h2>Halbfinale:<br><span style='font-size: 0.8em;'>Do. 5. Juni ab 19:00 Uhr</span></h2>
-      <div id="matches-round3"></div>
-    </div>
-
     <div class="round" id="finals">
-      <h2>Finale & Platz 3:<br><span style='font-size: 0.8em;'>Mo. 23. Juni ab 19:00 Uhr</span></h2>
-      <div class="subheading">Spiel um Platz 3</div>
-      <div id="matches-round4b"></div>
+      <h2>Finale:<br><span style='font-size: 0.8em;'>Mo. 23. Juni ab 19:00 Uhr</span></h2>
       <div class="subheading">Finale 🏆</div>
       <div id="matches-round4"></div>
     </div>
@@ -103,12 +96,12 @@
 
   <script>
     const round1Matches = [
-      { time: "17:30 Uhr", player1: "Lucas", player2: "Matthias", result: "319:423   Sieger: Matthias" },
-      { time: "17:30 Uhr", player1: "Hans-Jürgen", player2: "Oliver", result: "433:292   Sieger: Hans-Jürgen" },
-      { time: "18:30 Uhr", player1: "Helga", player2: "Sepp", result: "433:446   Sieger: Sepp" },
-      { time: "18:30 Uhr", player1: "Samu", player2: "Stefanie", result: "367:370   Siegerin: Stefanie" },
-      { time: "19:30 Uhr", player1: "Petra", player2: "Roland", result: "338:436   Sieger: Roland" },
-      { time: "19:30 Uhr", player1: "Gerhard", player2: "Willi", result: "457:454   Sieger: Gerhard" }
+      { time: "17:30 Uhr", player1: "Lucas", player2: "Matthias", result: "319:423   Sieger*in: Matthias" },
+      { time: "17:30 Uhr", player1: "Hans-Jürgen", player2: "Oliver", result: "433:292   Sieger*in: Hans-Jürgen" },
+      { time: "18:30 Uhr", player1: "Helga", player2: "Sepp", result: "433:446   Sieger*in: Sepp" },
+      { time: "18:30 Uhr", player1: "Samu", player2: "Stefanie", result: "367:370   Sieger*in: Stefanie" },
+      { time: "19:30 Uhr", player1: "Petra", player2: "Roland", result: "338:436   Sieger*in: Roland" },
+      { time: "19:30 Uhr", player1: "Gerhard", player2: "Willi", result: "457:454   Sieger*in: Gerhard" }
     ];
 
     const round2Matches = [
@@ -117,24 +110,37 @@
       { time: "vsl. 19:30 Uhr", player1: "Matthias", player2: "Hans-Jürgen" }
     ];
 
-      const round4Final = [
-      { player1: "", player2: "" }
-    ];
-
-    const round4ThirdPlace = [
-      { player1: "", player2: "" }
+    const round4Final = [
+      { player1: "Spieler/in 1", player2: "Spieler/in 2", player3: "Spieler/in 3", result: "0:0:0   Sieger*in: " }
     ];
 
     function renderMatchList(containerId, matches) {
       const container = document.getElementById(containerId);
+      if (!container) return;
       container.innerHTML = "";
       matches.forEach(match => {
         const div = document.createElement("div");
         div.className = "match";
-        div.innerHTML = `<h3>${match.time ? match.time + ": " : ""}${match.player1 || "Spieler/in 1"} vs. ${match.player2 || "Spieler/in 2"}</h3>` +
-                        (match.result ? `<div class='result'>${match.result}</div>` 
-                                      : ((match.player1 === "Willi" && match.player2 === "Freilos/Ersatz") || (match.player1 === "Spieler/in 7" && match.player2 === "Freilos/Ersatz")) 
-                                      ? '' : "<div class='result'>0:0 – Ergebnis folgt</div>");
+        
+        if (match.player3) {
+          // 3-Spieler Match (Finale)
+          div.innerHTML = `<h3>${match.player1} vs. ${match.player2} vs. ${match.player3}</h3>` +
+            `<div class='result'>${match.result}</div>` +
+            `<div style='font-size: 0.9em; color: #333;'>1. Platz:<br>2. Platz:<br>3. Platz:</div>`;
+        } else {
+          // 2-Spieler Match (normale Runden)
+          div.innerHTML = `<h3>${match.time ? match.time + ": " : ""}${match.player1 || "Spieler/in 1"} vs. ${match.player2 || "Spieler/in 2"}</h3>` +
+            (match.result
+              ? (() => {
+                  const parts = match.result.split("Sieger*in:");
+                  const name = parts[1]?.trim() || "";
+                  return `<div class='result'>${parts[0].trim()}</div><div style='font-size: 0.9em; color: #333;'>${name === "Stefanie" ? "Siegerin" : "Sieger"}: ${name}</div>`;
+                })()
+              : ((match.player1 === "Willi" && match.player2 === "Freilos/Ersatz") || (match.player1 === "Spieler/in 7" && match.player2 === "Freilos/Ersatz"))
+                ? ''
+                : "<div class='result'>0:0 – Ergebnis folgt</div>");
+        }
+        
         container.appendChild(div);
       });
     }
@@ -142,9 +148,7 @@
     function renderMatches() {
       renderMatchList("matches-round1", round1Matches);
       renderMatchList("matches-round2", round2Matches);
-      renderMatchList("matches-round3", round3Matches);
       renderMatchList("matches-round4", round4Final);
-      renderMatchList("matches-round4b", round4ThirdPlace);
     }
 
     renderMatches();
