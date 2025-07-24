@@ -124,8 +124,8 @@
 
         if (match.player3) {
           div.innerHTML = `<h3>${match.player1} vs. ${match.player2} vs. ${match.player3}</h3>` +
-            `<div class='result'>${match.result.split("Sieger*in:")[0].trim()} – Ergebnis folgt</div>` +
-            `<div style='font-size: 0.9em; color: #333;'>1. Platz:<br>2. Platz:<br>3. Platz:</div>`;
+            `<div class='result'>${match.result.split("Sieger*in:")[0].trim()}</div>` +
+            `<div style='font-size: 0.9em; color: #333;'>1. Platz: Roland<br>2. Platz: Gerhard<br>3. Platz: Matthias</div>`;
         } else {
           const matchTime = match.time ? match.time + ": " : "";
           if (match.result) {
